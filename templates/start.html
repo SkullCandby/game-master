@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to game</title>
+    <link rel="stylesheet" type="text/css" href="static/base.css">
+</head>
+<body>
+
+<h1> SCENE: {{ name }}</h1>
+<form action="/" method="post">
+<input type="submit" name="name" value="Edit">
+<br>
+<img src="{{ url_for('static', filename = image_filename) }}">
+{% for el in lst %}
+  <input type="submit" name="name" value={{ el }}>
+    {% endfor %}
+</form>
+<h1> {{ text }} </h1>
+</body>
+</html>

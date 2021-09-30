@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to editor</title>
+</head>
+<body>
+<h1> Game editor. Do your page: </h1>
+ <form enctype="multipart/form-data" method="POST">
+      <p1> Введи название сцены:</p1>
+      <input type="text" name="scene_name">
+      <br>
+      <p1> Вставь изображение сцены:</p1>
+      <input type="file" name="scene_img">
+      <br>
+      <p1> Напиши описание сцены:</p1>
+      <p><textarea rows="10" cols="45" name="scene_text"></textarea></p>
+      <p1> Напиши исходы сцены через запятую:</p1>
+      <br>
+      <input type="text" name="scene_paths">
+
+      <p><input type="submit" value="Отправить"></p>
+
+    </form>
+
+</body>
+</html>
