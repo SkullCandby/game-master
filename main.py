@@ -58,7 +58,7 @@ def editor():
     if scene_name not in cur.execute('''SELECT * FROM scene''').fetchall():
         try:
             cur.execute("INSERT INTO scene VALUES (?, ?, ?, ?, ?)",
-                        (scene_name, scene_paths, "pictures/" + scene_img.filename, scene_text, 'start.html'))
+                        (scene_name, scene_paths, scene_img.filename, scene_text, 'start.html'))
         except sql.IntegrityError:
             cur.execute('''UPDATE scene
                                    SET paths = ?, img = ?, lvl = ?, html = ?
