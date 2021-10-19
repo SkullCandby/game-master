@@ -13,17 +13,21 @@ name = "/"
 @app.route(name)
 def start():
     about = understand()
-    print(about['html'])
+    print(about)
     return render_template('start.html', text=about['text'], image_filename=about['img'], lst=about['paths'], name=about['scene'])
 
 
 @app.route(name, methods=["POST"])
 def start_post():
+    con = sql.connect('game.db')
+    cur = con.cursor()
     res = request.form.get('name')
-    if res != 'Edit':
-        con = sql.connect('game.db')
-        cur = con.cursor()
-        cur.execute('''UPDATE users
+    av_scenes_ = cur.execute("""SELECT name FROM scene1""").fetchall()[0]
+    av_scenes = []
+    [av_scenes.append(x[0]) for x in av_scenes_]
+    print(av_scenes, '////1224414', res)
+    if res != 'Edit' and res in av_scenes:
+        cur.execute('''UPDATE users1
                                SET scene = ?
                                WHERE ip = ?''', (res, request.remote_addr))
 

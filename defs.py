@@ -38,17 +38,26 @@ def understand():
         result = dict()
         con = sql.connect('game.db')
         cur = con.cursor()
-        print(request.remote_addr)
-        scene = '/' + cur.execute('''SELECT scene FROM users WHERE ip = ?''', (request.remote_addr,)).fetchone()[0]
+        ips_ = cur.execute("""SELECT ip FROM users1""").fetchall()
+        ips = []
+        [ips.append(x[0]) for x in ips_]
+        print(ips)
+        if request.remote_addr in ips:
+            scene = cur.execute('''SELECT scene FROM users1 WHERE ip = ?''', (request.remote_addr,)).fetchone()[0]
+            print(scene)
+        else:
+            scene = 'begin'
+            cur.execute("""INSERT INTO users1 (IP, name, inv, hp, DMG, scene, armor, COIN) VALUES(?, '', '', ?, ?, ?, 100, 100)""", (request.remote_addr, 0, 0,'begin',))
+            con.commit()
         print('link -->', scene)
-        html = cur.execute('''SELECT html FROM scene WHERE name = ?''', (scene,)).fetchone()[0]
+        html = cur.execute('''SELECT html FROM scene1 WHERE name = ?''', (scene,)).fetchone()[0]
         print('html -->', html)
-        paths = cur.execute("""SELECT paths FROM scene WHERE name=?""", (scene,)).fetchall()[0]
+        paths = cur.execute("""SELECT paths FROM scene1 WHERE name=?""", (scene,)).fetchall()[0]
         # taking images
 
-        img = 'pictures/' + cur.execute("""SELECT img FROM scene WHERE name=?""", (scene,)).fetchone()[0]
+        img = 'pictures/' + cur.execute("""SELECT img FROM scene1 WHERE name=?""", (scene,)).fetchone()[0]
         print(img)
-        text = cur.execute("""SELECT lvl FROM scene WHERE name=?""", (scene,)).fetchone()[0]
+        text = cur.execute("""SELECT text FROM scene1 WHERE name=?""", (scene,)).fetchone()[0]
         img_link = "{{ url_for('static', filename='pictures/" + str(img[0]) + "') }}"
         lst = paths[0].split(",")
         leng = len(lst)
@@ -58,5 +67,6 @@ def understand():
         result['scene'] = scene
         result['img'] = img
         result['text'] = text
+
         con.commit()
         return (result)

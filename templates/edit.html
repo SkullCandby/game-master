@@ -7,19 +7,38 @@
 <body>
 <h1> Game editor. Do your page: </h1>
  <form enctype="multipart/form-data" method="POST">
-      <p1> Введи название сцены:</p1>
-      <input type="text" name="scene_name">
+      <p1> Введи название района:</p1>
+      <input type="text" name="scene_name" value={{ scene_name }}>
       <br>
-      <p1> Вставь изображение сцены:</p1>
-      <input type="file" name="scene_img">
+       <p1> Выбери биом</p1>
+       <select name = "select_biom">
+ {% for el in biom_list %}
+         <option value="{{el}}"> {{ el }}</option>
+    {% endfor %}
+</select>
       <br>
       <p1> Напиши описание сцены:</p1>
-      <p><textarea rows="10" cols="45" name="scene_text"></textarea></p>
-      <p1> Напиши исходы сцены через запятую:</p1>
+      <p><textarea rows="10" cols="45" name="scene_text">{{scene_text}}</textarea></p>
+      <p1> Напиши районы, куда можно пойти через запятую:</p1>
       <br>
-      <input type="text" name="scene_paths">
-
-      <p><input type="submit" value="Отправить"></p>
+      <input type="text" name="scene_paths" value="{{scene_paths}}">
+     <br>
+      <p1> Выбери каких мобов вы хотит видеть на этой странице</p1>
+      <br>
+     <select name = "select_entity">
+ {% for el in entity_list %}
+         <option value="{{el}}"> {{ el }}</option>
+    {% endfor %}
+</select>
+     <select name = "select_amount">
+         <option value="1"> 1 </option>
+         <option value="2"> 2 </option>
+         <option value="3"> 3 </option>
+     </select>
+     <br>
+     <input type='submit' name="add" value="add">
+<p><textarea rows="7" cols="45" name="entity_info" >{{ entity }}</textarea></p>
+      <p><input type="submit" value="Send" name="Send"></p>
 
     </form>
 
