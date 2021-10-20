@@ -9,7 +9,6 @@ app.config["IMAGE_UPLOADS"] = "C:/Users/dvmes/PycharmProjects/game-master/static
 global name
 name = "/"
 
-
 @app.route(name)
 def start():
     about = understand()
