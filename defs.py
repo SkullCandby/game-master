@@ -1,9 +1,9 @@
 import sqlite3 as sql
 from flask import Flask, render_template, request, redirect,url_for
 
-
+print(sql.sqlite_version)
 def edit_1():
-    con = sql.connect('game.db')
+    con = sql.connect('game')
     cur = con.cursor()
     if request.remote_addr not in cur.execute('''SELECT * FROM users''').fetchall():
         try:
@@ -114,7 +114,7 @@ def new_understand(req):
                     n = 1
                     el = final_lst[j]
                     if len(new_lst) != 1:
-                        n = int(new_lst[1])
+                        n = int(new_lst[1]) # ya poshel ssat`
                         el = new_lst[0]
                     try:
                         drop_lst[el] += n * int(value)
